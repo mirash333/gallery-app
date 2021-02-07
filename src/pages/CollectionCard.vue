@@ -1,7 +1,9 @@
 <template>
     <div>
         <template v-if="!loading">
-            <banner-component :image="collectionCopy.cover_photo"></banner-component>
+            <banner-component
+                :image="collectionCopy.cover_photo"
+            ></banner-component>
             <gallery-list :items="collectionCopy.preview_photos"></gallery-list>
         </template>
         <template v-else>
@@ -11,41 +13,39 @@
 </template>
 
 <script>
-
-
-import {mapActions, mapState} from "vuex";
-import {isEmpty} from "lodash";
+import { mapActions, mapState } from "vuex";
+import { isEmpty } from "lodash";
 
 export default {
     name: "CollectionCard",
     components: {
         Skeleton: () => import("@/components/Skeleton"),
         GalleryList: () => import("@/components/GalleryList"),
-        BannerComponent: () => import("@/components/BannerComponent")
+        BannerComponent: () => import("@/components/BannerComponent"),
     },
     data: () => {
         return {
-            loading: false
-        }
+            loading: false,
+        };
     },
     methods: {
-        ...mapActions(['getCollection'])
+        ...mapActions(["getCollection"]),
     },
     computed: {
-        ...mapState(['collection']),
+        ...mapState(["collection"]),
         collectionCopy() {
-            return this.$route.params.collection || this.collection
-        }
+            return this.$route.params.collection || this.collection;
+        },
     },
     created() {
         if (isEmpty(this.collectionCopy)) {
-            this.loading = true
-            this.getCollection({id: this.$route.params.id}).then(() => this.loading = false)
+            this.loading = true;
+            this.getCollection({ id: this.$route.params.id }).then(
+                () => (this.loading = false)
+            );
         }
-    }
-}
+    },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

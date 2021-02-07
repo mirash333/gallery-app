@@ -1,12 +1,12 @@
-import axios from 'axios';
+import axios from "axios";
 
 const instance = axios.create({
-// .. where we make our configurations
-    baseURL: process.env.BASE_URL
+    // .. where we make our configurations
+    baseURL: process.env.BASE_URL,
 });
 
 // Where you would set stuff like your 'Authorization' header, etc ...
-instance.defaults.headers.common['Authorization'] = process.env.AUTH_TOKEN;
+instance.defaults.headers.common["Authorization"] = process.env.AUTH_TOKEN;
 
 instance.CancelToken = axios.CancelToken;
 instance.isCancel = axios.isCancel;

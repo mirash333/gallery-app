@@ -8,21 +8,20 @@
 </template>
 
 <script>
-
-import {mapActions} from 'vuex'
+import { mapActions } from "vuex";
 
 export default {
     name: "App",
     components: {
-        HeaderComponent: () => import("@/components/HeaderComponent")
+        HeaderComponent: () => import("@/components/HeaderComponent"),
     },
     methods: {
-      ...mapActions(['getPhotos'])
+        ...mapActions(["getPhotos"]),
     },
     created() {
-        this.getPhotos()
-    }
-}
+        this.getPhotos();
+    },
+};
 </script>
 
 <style scoped lang="scss">

@@ -1,4 +1,4 @@
-@import '../fonts/stylesheet.css';
+@import "../fonts/stylesheet.css";
 
 @tailwind base;
 @tailwind components;
@@ -10,13 +10,13 @@ body {
     flex-direction: column;
     flex-grow: 1;
 }
-body{
-    font-family: 'Inter', serif;
+body {
+    font-family: "Inter", serif;
 }
-.spin{
+.spin {
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     z-index: 3;
 }

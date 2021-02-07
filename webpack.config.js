@@ -1,92 +1,86 @@
-const path = require('path')
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const Dotenv = require('dotenv-webpack');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require("path");
+const VueLoaderPlugin = require("vue-loader/lib/plugin");
+const Dotenv = require("dotenv-webpack");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-const isDev = process.env.NODE_ENV === 'development'
+const isDev = process.env.NODE_ENV === "development";
 
 module.exports = {
-    entry: './src/app.js',
+    entry: "./src/app.js",
     devServer: {
         historyApiFallback: true,
         writeToDisk: true,
-        hot: isDev
+        hot: isDev,
     },
     output: {
-        path: path.join(__dirname, 'dist'),
+        path: path.join(__dirname, "dist"),
         filename: "[name].js",
-        publicPath: "/"
+        publicPath: "/",
     },
     optimization: {
-        runtimeChunk: 'single',
+        runtimeChunk: "single",
         splitChunks: {
-            chunks: 'all'
+            chunks: "all",
         },
     },
     module: {
         rules: [
             {
                 test: /\.vue$/,
-                loader: 'vue-loader'
+                loader: "vue-loader",
             },
             {
                 test: /\.js$/,
-                loader: 'babel-loader',
+                loader: "babel-loader",
             },
             {
                 test: /\.css$/,
                 use: [
-                    isDev
-                        ? 'vue-style-loader'
-                        : MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    'postcss-loader'
-                ]
+                    isDev ? "vue-style-loader" : MiniCssExtractPlugin.loader,
+                    "css-loader",
+                    "postcss-loader",
+                ],
             },
             {
                 test: /\.scss$/,
                 use: [
-                    isDev
-                        ? 'vue-style-loader'
-                        : MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    'sass-loader',
-                    'postcss-loader'
-                ]
+                    isDev ? "vue-style-loader" : MiniCssExtractPlugin.loader,
+                    "css-loader",
+                    "sass-loader",
+                    "postcss-loader",
+                ],
             },
             {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
-                type: 'asset/resource',
+                type: "asset/resource",
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,
-                type: 'asset/resource',
+                type: "asset/resource",
             },
-        ]
+        ],
     },
     plugins: [
         new VueLoaderPlugin(),
         new CleanWebpackPlugin(),
         new Dotenv(),
         new HtmlWebpackPlugin({
-            template: './index.html',
-            inject: 'body',
+            template: "./index.html",
+            inject: "body",
         }),
         new CopyPlugin({
-            patterns: [
-                { from: "src/static", to: "static" },
-            ],
+            patterns: [{ from: "src/static", to: "static" }],
         }),
         new MiniCssExtractPlugin(),
     ],
     resolve: {
-        extensions: ['.js', '.vue', '.json'],
+        extensions: [".js", ".vue", ".json"],
         alias: {
-            'vue$': 'vue/dist/vue.esm.js',
-            '@': path.resolve('src'),
-        }
+            vue$: "vue/dist/vue.esm.js",
+            "@": path.resolve("src"),
+        },
     },
-}
+};
