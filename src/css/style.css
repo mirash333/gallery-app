@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+body{
+    font-family: 'Inter', serif;
+}
+.spin{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 3;
+}
