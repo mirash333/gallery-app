@@ -4,15 +4,27 @@ const Dotenv = require('dotenv-webpack');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require("copy-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
+const isDev = process.env.NODE_ENV === 'development'
 
 module.exports = {
     entry: './src/app.js',
     devServer: {
-        historyApiFallback: true
+        historyApiFallback: true,
+        writeToDisk: true,
+        hot: isDev
     },
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: 'app.js'
+        filename: "[name].js",
+        publicPath: "/"
+    },
+    optimization: {
+        runtimeChunk: 'single',
+        splitChunks: {
+            chunks: 'all'
+        },
     },
     module: {
         rules: [
@@ -23,12 +35,13 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                exclude: /node_modules/,
             },
             {
                 test: /\.css$/,
                 use: [
-                    'vue-style-loader',
+                    isDev
+                        ? 'vue-style-loader'
+                        : MiniCssExtractPlugin.loader,
                     'css-loader',
                     'postcss-loader'
                 ]
@@ -36,9 +49,12 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: [
-                    'vue-style-loader',
+                    isDev
+                        ? 'vue-style-loader'
+                        : MiniCssExtractPlugin.loader,
                     'css-loader',
-                    'sass-loader'
+                    'sass-loader',
+                    'postcss-loader'
                 ]
             },
             {
@@ -61,9 +77,10 @@ module.exports = {
         }),
         new CopyPlugin({
             patterns: [
-                { from: "static", to: "static" },
+                { from: "src/static", to: "static" },
             ],
         }),
+        new MiniCssExtractPlugin(),
     ],
     resolve: {
         extensions: ['.js', '.vue', '.json'],

@@ -25,7 +25,6 @@ export const store = new Vuex.Store({
             }
         },
         errors: {
-            photos: ''
         }
     },
     getters: {},

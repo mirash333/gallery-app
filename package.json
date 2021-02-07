@@ -4,9 +4,8 @@
   "description": "Test assignment for the position of Front-end developer. Apricode company.",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack serve --hot --open --progress --mode development",
-    "build": "webpack --progress --mode production"
+    "start": "cross-env NODE_ENV=development webpack serve --open --progress --mode development",
+    "build": "cross-env NODE_ENV=production webpack serve --open --progress --mode production"
   },
   "author": "mirash333",
   "license": "ISC",
@@ -17,10 +16,12 @@
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^7.0.0",
+    "cross-env": "^7.0.3",
     "css-loader": "3.6.0",
     "dotenv": "^8.2.0",
     "dotenv-webpack": "^6.0.0",
     "html-webpack-plugin": "^5.0.0",
+    "mini-css-extract-plugin": "^1.3.5",
     "node-sass": "^5.0.0",
     "postcss": "^8.2.4",
     "postcss-loader": "^5.0.0",
@@ -36,13 +37,10 @@
   "dependencies": {
     "axios": "^0.21.1",
     "blurhash": "^1.1.3",
-    "core-js": "^3.8.3",
     "lodash": "^4.17.20",
-    "regenerator-runtime": "^0.13.7",
     "tailwindcss": "^2.0.2",
     "v-lazy-image": "^1.4.0",
     "vue": "^2.6.12",
-    "vue-lazyload": "^1.3.3",
     "vue-router": "^3.5.1",
     "vuex": "^3.6.2"
   }

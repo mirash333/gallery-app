@@ -1,20 +1,18 @@
 @font-face {
     font-family: 'Inter';
     src: local('Inter Bold'), local('Inter-Bold'),
-        url('Inter-Bold.woff2') format('woff2'),
-        url('Inter-Bold.woff') format('woff'),
-        url('Inter-Bold.ttf') format('truetype');
+        url('inter-bold-webfont.woff2') format('woff2'),
+        url('inter-bold-webfont.woff') format('woff');
     font-weight: bold;
     font-style: normal;
-    font-display: swap;
+        font-display: swap;
 }
 
 @font-face {
     font-family: 'Inter';
     src: local('Inter Regular'), local('Inter-Regular'),
-        url('Inter-Regular.woff2') format('woff2'),
-        url('Inter-Regular.woff') format('woff'),
-        url('Inter-Regular.ttf') format('truetype');
+        url('inter-regular-webfont.woff2') format('woff2'),
+        url('inter-regular-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -23,9 +21,8 @@
 @font-face {
     font-family: 'Inter';
     src: local('Inter SemiBold'), local('Inter-SemiBold'),
-        url('Inter-SemiBold.woff2') format('woff2'),
-        url('Inter-SemiBold.woff') format('woff'),
-        url('Inter-SemiBold.ttf') format('truetype');
+        url('inter-semibold-webfont.woff2') format('woff2'),
+        url('inter-semibold-webfont.woff') format('woff');
     font-weight: 600;
     font-style: normal;
     font-display: swap;
