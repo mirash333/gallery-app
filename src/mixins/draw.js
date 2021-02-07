@@ -6,7 +6,6 @@ export default {
             this.isImageLoaded = false
             const width = this.$refs[ref].clientWidth
             const height = this.$refs[ref].clientHeight
-            if (!(width || height)) return
             const pixels = decode(this.image.blur_hash, width, height, 1)
             const ctx = this.$refs.canvas.getContext('2d')
             const imageData = ctx.createImageData(width, height)

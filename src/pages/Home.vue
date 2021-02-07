@@ -1,33 +1,47 @@
 <template>
     <div>
-        <div class="container mx-auto">
-            <template v-if="!loading">
-                <banner-component :image="randomImage" @getRandomImage="getRandomImage"></banner-component>
-                <gallery-list :randomImage="randomImage"></gallery-list>
-            </template>
-            <skeleton v-else></skeleton>
-        </div>
+        <template v-if="!loading && randomImage">
+            <banner-component :image="randomImage" @getRandomImage="getRandomImage"
+                              :timer-is-needed="true"></banner-component>
+            <search-component></search-component>
+            <gallery-list :items="search.input ? search.results : photos"></gallery-list>
+        </template>
+        <skeleton v-else></skeleton>
     </div>
 </template>
 
 <script>
-import BannerComponent from "@/components/BannerComponent";
-import {mapActions, mapState} from "vuex";
-import GalleryList from "@/components/GalleryList";
-import {decode} from "blurhash";
-import Skeleton from "@/components/Skeleton";
+import {mapActions, mapMutations, mapState} from "vuex";
+import {isEmpty} from 'lodash'
+
 export default {
     name: "Home",
-    components: {Skeleton, GalleryList, BannerComponent},
+    components: {
+        SearchComponent: () => import("@/components/SearchComponent"),
+        Skeleton: () => import("@/components/Skeleton"),
+        GalleryList: () => import("@/components/GalleryList"),
+        BannerComponent: () => import("@/components/BannerComponent")
+    },
     data: () => {
         return {
             randomKey: undefined,
-            randomImage: undefined,
-            loading: true
         }
     },
     computed: {
-        ...mapState(['photos']),
+        ...mapState(['photos','search']),
+        loading: {
+            get() {
+                return this.$store.state.loadings.photos
+            }
+        },
+        randomImage: {
+            get() {
+                return this.$store.state.randomImage
+            },
+            set(value) {
+                this.$store.commit('updateRandomImage',value)
+            }
+        }
     },
     watch: {
         photos() {
@@ -35,7 +49,8 @@ export default {
         },
     },
     methods: {
-        ...mapActions(['getCollections','getPhotos']),
+        ...mapMutations(['updateSearchInput']),
+        ...mapActions(['getCollections']),
         getRandomImage() {
             if (!this.photos.length) return
             const key = Math.floor(Math.random() * this.photos.length)
@@ -43,10 +58,13 @@ export default {
         },
     },
     mounted() {
-        this.getRandomImage()
+        if (isEmpty(this.randomImage)){
+            this.getRandomImage()
+        }
     },
-    created() {
-        this.getPhotos().then(() => this.loading = false)
+    beforeRouteLeave(to, from, next){
+        this.updateSearchInput('')
+        next()
     }
 }
 </script>

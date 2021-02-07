@@ -1,13 +1,17 @@
 const path = require('path')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const Dotenv = require('dotenv-webpack');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-    entry: path.join(__dirname, 'src', 'app.js'),
-    mode: 'development',
+    entry: './src/app.js',
+    devServer: {
+        historyApiFallback: true
+    },
     output: {
         path: path.join(__dirname, 'dist'),
-        publicPath: '/dist/',
         filename: 'app.js'
     },
     module: {
@@ -16,15 +20,11 @@ module.exports = {
                 test: /\.vue$/,
                 loader: 'vue-loader'
             },
-            // это будет применяться к файлам `.js`
-            // А ТАКЖЕ к секциям `<script>` внутри файлов `.vue`
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
             },
-            // это будет применяться к файлам `.css`
-            // А ТАКЖЕ к секциям `<style>` внутри файлов `.vue`
             {
                 test: /\.css$/,
                 use: [
@@ -52,9 +52,18 @@ module.exports = {
         ]
     },
     plugins: [
-        // убедитесь что подключили плагин!
         new VueLoaderPlugin(),
-        new Dotenv()
+        new CleanWebpackPlugin(),
+        new Dotenv(),
+        new HtmlWebpackPlugin({
+            template: './index.html',
+            inject: 'body',
+        }),
+        new CopyPlugin({
+            patterns: [
+                { from: "static", to: "static" },
+            ],
+        }),
     ],
     resolve: {
         extensions: ['.js', '.vue', '.json'],

@@ -1,16 +1,27 @@
 <template>
     <div class="bg-gray-200 h-full">
         <header-component></header-component>
-        <router-view></router-view>
+        <div class="container mx-auto md:px-8 xl:px-0">
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 
 <script>
-import HeaderComponent from "@/components/HeaderComponent";
+
+import {mapActions} from 'vuex'
 
 export default {
     name: "App",
-    components: {HeaderComponent},
+    components: {
+        HeaderComponent: () => import("@/components/HeaderComponent")
+    },
+    methods: {
+      ...mapActions(['getPhotos'])
+    },
+    created() {
+        this.getPhotos()
+    }
 }
 </script>
 
