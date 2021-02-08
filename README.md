@@ -9,6 +9,11 @@ Small gallery written in Vue.js
 >Test assignment for the position of Front-end developer. Apricode company.
 
 
+## Requirements 
+
+Node JS 11+
+
+
 ## Libraries
 
 Library | Description
