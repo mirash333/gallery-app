@@ -11,7 +11,7 @@ Small gallery written in Vue.js
 
 ## Requirements 
 
-Node JS 11+
+Minimum Node JS 12 version
 
 
 ## Libraries
